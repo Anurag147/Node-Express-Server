@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from './components/App';
+import {createStore,applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import reducers from './reducers';
+import 'materialize-css/dist/css/materialize.min.css'; //Load CSS module
+import reduxThunk from 'redux-thunk'; //Middleware for async calls in redux action creators
 
+const store = createStore(reducers,{},applyMiddleware(reduxThunk)); //Create a redux store 
+
+//Render dom with App component
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+     <Provider store = {store}>
+         <App/>
+     </Provider> ,
+    document.querySelector('#root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

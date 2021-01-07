@@ -25,30 +25,19 @@ passport.use(new GoogleStrategy(
         callbackURL:'/auth/google/callback',
         proxy: true //To handle call back URLs
     },
-    (accessToken,refreshToken,profile,done)=>
+    async (accessToken,refreshToken,profile,done)=>
     {
         const profileID = profile.id;
         //Check if user exists in database
-        User.findOne({
-            googleID:profileID
-        })
-        .then((existingUser)=>{
+        const existingUser = await User.findOne({googleID:profileID})
             if(!existingUser){
                 //Save user to database
-                const newUser = new User({googleID:profile.id});
-                newUser
-                .save()
-                .then((user)=>{
-                    done(null,user) //Passport js callback to finish the processing
-                });
+                const user = await new User({googleID:profile.id}).save()
+                done(null,user); //Passport js callback to finish the processing
             }
             else{
                 console.log("user found");
                 done(null,existingUser) //Passport js callback to finish the processing
             }
-        })
-        .catch((err)=>{
-            console.log(err)
-        });
     }
 ));
