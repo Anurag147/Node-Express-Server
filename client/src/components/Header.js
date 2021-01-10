@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import Payments from './Payments';
 
 class Header extends React.Component{
     renderContent(){
@@ -13,11 +14,12 @@ class Header extends React.Component{
                         <a href="/auth/google">Log In With Google</a>
                     </li>
                 );
-            default:
-                return (
-                    <li>
-                        <a href="/api/logout">Log Out</a>
-                    </li>
+            default: //Returning an array of elements. It is allowed only in latest versions of react
+                return ( 
+                    [                                 
+                    <li key="A"><Payments/></li>,
+                    <li key="B"><a href="/api/logout">Log Out</a></li> 
+                    ]       
                 );        
         }
     }
