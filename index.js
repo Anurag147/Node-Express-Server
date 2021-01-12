@@ -7,8 +7,12 @@ const billingRoutes = require('./routes/billingRoutes');//Load auth routes
 const keys = require('./config/keys'); //Load keys from configuration file
 const passport = require('passport');//Load passport module
 const cookiesession = require('cookie-session');//Load cookie sessions module 
+const bodyParser = require('body-parser'); //Express middleware to use body object in incoming requests
 
 const app = express();//Create instance of express server
+
+//Enable express middleware to parse the body and assign it to req.body
+app.use(bodyParser.json());
 
 //Enforce app to use cookie sessions
 app.use(

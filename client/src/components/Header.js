@@ -18,7 +18,8 @@ class Header extends React.Component{
                 return ( 
                     [                                 
                     <li key="A"><Payments/></li>,
-                    <li key="B"><a href="/api/logout">Log Out</a></li> 
+                    <li style={{marginLeft:'5px'}} key = "B">Credits: <strong>{this.props.auth.credits}</strong></li>,
+                    <li key="C"><a href="/api/logout">Log Out</a></li> 
                     ]       
                 );        
         }
