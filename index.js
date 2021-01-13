@@ -28,5 +28,17 @@ mongoose.connect(keys.mongoURI,{ useNewUrlParser: true });//Connect to mongo DB 
 authRoutes(app); //Initialize auth routes with express
 billingRoutes(app); //Initialize billing routes with express
 
+//Configuration for serving react app and node app only from Heroku production
+if(process.env.NODE_ENV == 'production'){
+    //Express will serve up production assets like main.js file from client app
+    app.use(express.static('client/build'));
+
+    //Express will serve up react app index.htm file if it doesnt recognise the route
+    const path = require('path');
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'));
+    })
+}
+
 const PORT = process.env.PORT || 5000; //Define port for use
 app.listen(PORT);//Listen for the new requests on port 5000
