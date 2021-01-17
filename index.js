@@ -1,9 +1,11 @@
 const express = require('express'); //Load Express server
 const mongoose = require('mongoose');//Load mongoose package to connect with MongoDB
 require('./models/User');//Load mongoose model
+require('./models/Survey');//Load survey model
 require('./services/passport');//Load passport configuration
 const authRoutes = require('./routes/authRoutes');//Load auth routes
 const billingRoutes = require('./routes/billingRoutes');//Load auth routes
+const surveyRoutes = require('./routes/surveyRoutes');
 const keys = require('./config/keys'); //Load keys from configuration file
 const passport = require('passport');//Load passport module
 const cookiesession = require('cookie-session');//Load cookie sessions module 
@@ -28,6 +30,7 @@ app.use(passport.session());//use passport sessions in this express application
 
 authRoutes(app); //Initialize auth routes with express
 billingRoutes(app); //Initialize billing routes with express
+surveyRoutes(app); //Initialize survey routes with express
 
 //Configuration for serving react app and node app only from Heroku production
 if (process.env.NODE_ENV === 'production') {
