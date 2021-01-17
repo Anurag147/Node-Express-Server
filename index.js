@@ -12,12 +12,9 @@ const cookiesession = require('cookie-session');//Load cookie sessions module
 const bodyParser = require('body-parser'); //Express middleware to use body object in incoming requests
 
 mongoose.connect(keys.mongoURI,{ useNewUrlParser: true });//Connect to mongo DB instance
-
 const app = express();//Create instance of express server
-
 //Enable express middleware to parse the body and assign it to req.body
 app.use(bodyParser.json());
-
 //Enforce app to use cookie sessions
 app.use(
     cookiesession({
@@ -27,7 +24,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());//use passport sessions in this express application
-
 authRoutes(app); //Initialize auth routes with express
 billingRoutes(app); //Initialize billing routes with express
 surveyRoutes(app); //Initialize survey routes with express
