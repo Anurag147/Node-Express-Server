@@ -11,14 +11,14 @@ class SurveyForm extends Component{
                 <Field label="Survey Title" type="text" name="title" component={SurveyField}/>
                 <Field label="Subject Line" type="text" name="subject" component={SurveyField}/>
                 <Field label="Email Body" type="text" name="body" component={SurveyField}/>
-                <Field label="Email Recipient" type="text" name="emails" component={SurveyField}/>
+                <Field label="Email Recipient" type="text" name="recipients" component={SurveyField}/>
             </div>
         );
     };
     render(){
         return (
             <div>
-                <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+                <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
                     {this.renderFields()}
                     <Link to="/surveys" className="red btn-flat white-text">
                         Cancel
@@ -35,7 +35,7 @@ class SurveyForm extends Component{
 
 function validate(values){
     const errors = {};
-    errors.emails = validateEmails(values.emails || '');
+    errors.recipients = validateEmails(values.recipients || '');
     if(!values.title){
         errors.title = "You must provide a title to proceed";
     }
@@ -50,5 +50,6 @@ function validate(values){
 
 export default reduxForm({
     validate:validate,
-    form:'surveyForm'
+    form:'surveyForm',
+    destroyOnUnmount:false
 })(SurveyForm); //Integrate redux form to this component

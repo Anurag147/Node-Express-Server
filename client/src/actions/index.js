@@ -20,3 +20,9 @@ export const handleToken = (token) => {
         dispatch({type: FETCH_USER,payload:response.data});//Dispatch this action manually
     }
 }
+
+export const submitSurvey = (values,history) => async dispatch => {
+    const res = await axios.post('/api/surveys', values);
+    history.push('/surveys');
+    dispatch({ type: FETCH_USER, payload: res.data });
+  };
