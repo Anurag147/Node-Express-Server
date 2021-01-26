@@ -8,6 +8,10 @@ module.exports = (app) => {
     app.get('/api/surveys/thanks',(req,res) => {
         return res.send('Thanks for submitting the survey');
     });
+    app.get('/api/surveys/webhook',(req,res) => {
+        console.log(req.body);
+        return res.send('Thanks for submitting the survey');
+    });
     app.post('/api/surveys', requireLogin, requireCredits, async (req,res) => {
         const {title, subject, body, recipients} = req.body; //Get all the values from request body
         const survey = new Survey({
